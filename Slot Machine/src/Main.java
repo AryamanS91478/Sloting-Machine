@@ -19,6 +19,7 @@ public class Main {
             System.out.println("Your current Balance is: $" + balance);
             System.out.print("Enter your bet amount: $");
             bet = scanner.nextInt();
+            scanner.nextLine();
 
             if(bet>balance){
                 System.out.println("Insufficient Balance");
@@ -41,7 +42,15 @@ public class Main {
             else {
                 System.out.println("You Lost");
             }
+
+            System.out.print("Do you want to play Again? (Y/N): ");
+            String playAgain = scanner.nextLine().toUpperCase();
+
+            if (!playAgain.equals("Y")){
+                break;
+            }
         }
+        System.out.println("Game Over! Your final balance is $" + balance);
     }
     static String[] spinRow(){
         String[] symbols = {"🍒","🍐","🍉","🔔","⭐"};
@@ -70,7 +79,18 @@ public class Main {
                 case "⭐" -> bet * 20;
                 default -> 0;
             };
+        } else if (row[0].equals(row[1]) || row[1].equals(row[2]) || row[0].equals(row[2])) {
+            return switch (row[0]){
+                case "🍒" -> bet * 1;
+                case "🍐" -> bet * 2;
+                case "🍉" -> bet * 3;
+                case "🔔" -> bet * 5;
+                case "⭐" -> bet * 8;
+                default -> 0;
+            };
         }
-        return 0;
+        else {
+            return 0;
+        }
     }
 }
